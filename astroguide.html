@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroGuide — Mobile Onboarding & Retention UX Case Study | Devverat</title>
+  
+  <!-- Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      /* WARM VEDIC TRUST DESIGN SYSTEM (OFFICIAL DIRECTION) */
+      --bg-ivory: #FAF8F5;
+      --bg-surface: #FFFFFF;
+      --bg-surface-soft: #F5F2EB;
+      --bg-card: #FFFFFF;
+      
+      --border-subtle: #E8E4DC;
+      --border-warm: #E6D8C8;
+      --border-accent: rgba(230, 81, 0, 0.25);
+      
+      /* Primary Brand: Warm Amber / Saffron */
+      --saffron-primary: #E65100;
+      --saffron-light: #FF6D00;
+      --saffron-subtle: #FFF3E0;
+      --saffron-border: rgba(230, 81, 0, 0.2);
+      
+      /* Secondary Accents */
+      --gold-coin: #FFB300;
+      --gold-coin-bg: #FFF8E1;
+      --online-green: #10B981;
+      --online-green-bg: #ECFDF5;
+      
+      /* Deep Charcoal Typography */
+      --text-charcoal: #1A1D20;
+      --text-body: #4A5568;
+      --text-muted: #718096;
+      --text-light: #A0AEC0;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 6px rgba(26, 29, 32, 0.04);
+      --shadow-card: 0 10px 30px -5px rgba(26, 29, 32, 0.06), 0 2px 6px rgba(26, 29, 32, 0.02);
+      --shadow-lg: 0 20px 45px -10px rgba(230, 81, 0, 0.08), 0 4px 12px rgba(26, 29, 32, 0.04);
+      
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-ivory);
+      color: var(--text-charcoal);
+      line-height: 1.65;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 0%, rgba(230, 81, 0, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 15%, rgba(255, 179, 0, 0.04) 0%, transparent 45%);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* TOP NAVIGATION */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(250, 248, 245, 0.92);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-charcoal);
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #FF6D00 0%, #E65100 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(230, 81, 0, 0.25);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      background: var(--saffron-subtle);
+      color: var(--saffron-primary);
+      border: 1px solid var(--saffron-border);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-body);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--saffron-primary);
+    }
+
+    /* Mobile Toggle Button */
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-charcoal);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .mobile-menu-btn:hover, .mobile-menu-btn:active {
+      border-color: var(--saffron-primary);
+      color: var(--saffron-primary);
+    }
+
+    /* Mobile Nav Drawer */
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 69px;
+      left: 0;
+      right: 0;
+      background: rgba(250, 248, 245, 0.98);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border-warm);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      z-index: 99;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+
+    .mobile-nav-drawer.open {
+      max-height: 480px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-drawer-inner {
+      padding: 18px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .mobile-menu-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      padding-left: 4px;
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      text-decoration: none;
+      color: var(--text-charcoal);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .mobile-nav-item:hover, .mobile-nav-item:active {
+      border-color: var(--saffron-primary);
+      background: var(--saffron-subtle);
+      transform: translateX(3px);
+    }
+
+    .mobile-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-item-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--bg-surface-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--saffron-primary);
+      flex-shrink: 0;
+    }
+
+    .mobile-drawer-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 8px 0;
+    }
+
+    .mobile-portfolio-link {
+      background: #FFFBF5;
+      border-color: #FFE0B2;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--saffron-primary);
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+      color: var(--text-charcoal);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight-saffron {
+      color: var(--saffron-primary);
+      display: inline-block;
+    }
+
+    .hero p.lead {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-body);
+      max-width: 820px;
+      margin: 0 auto 38px;
+      line-height: 1.7;
+    }
+
+    /* KEY METRICS STRIP */
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      max-width: 1040px;
+      margin: 0 auto 60px;
+    }
+
+    .metric-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      text-align: left;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--saffron-primary);
+    }
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--saffron-primary);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .metric-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* SECTION HEADERS */
+    .section-head {
+      margin-bottom: 32px;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--saffron-primary);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+      color: var(--text-charcoal);
+    }
+    .section-head p {
+      color: var(--text-body);
+      font-size: 1rem;
+      margin-top: 8px;
+      max-width: 720px;
+    }
+
+    /* FIGMA CANVAS PRESENTATION WINDOW */
+    .figma-stage {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 80px;
+    }
+
+    .figma-titlebar {
+      background: #F5F2EB;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .figma-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .f-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .f-dot-red { background: #FF5F56; }
+    .f-dot-yellow { background: #FFBD2E; }
+    .f-dot-green { background: #27C93F; }
+
+    .figma-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-charcoal);
+    }
+
+    .flow-badge {
+      background: #0D99FF;
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .figma-canvas-box {
+      background: #1E1E1E;
+      padding: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .figma-canvas-box img {
+      width: 100%;
+      height: auto;
+      max-width: 1120px;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+    }
+    .figma-canvas-box img:hover {
+      transform: scale(1.01);
+    }
+
+    /* FLOW WIRES STRIP */
+    .flow-steps-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 24px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .flow-step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.88rem;
+    }
+    .flow-step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--saffron-primary);
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .flow-step-desc strong {
+      display: block;
+      color: var(--text-charcoal);
+      margin-bottom: 2px;
+    }
+    .flow-step-desc span {
+      color: var(--text-body);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    /* THREE CORE DESIGN RATIONALE PILLARS (USER'S EXACT TEXT) */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+    @media (max-width: 768px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pillar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--saffron-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pillar-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--saffron-subtle);
+      color: var(--saffron-primary);
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .pillar-highlight-box {
+      background: var(--bg-surface-soft);
+      border-left: 3px solid var(--saffron-primary);
+      padding: 14px 16px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.85rem;
+      color: var(--text-charcoal);
+      line-height: 1.6;
+      margin-top: auto;
+    }
+    .pillar-highlight-box strong {
+      color: var(--saffron-primary);
+    }
+
+    /* THE 3 CORE MOBILE SCREENS SHOWCASE */
+    .screens-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+    @media (max-width: 960px) {
+      .screens-showcase-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .screen-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .screen-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--saffron-primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .screen-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      background: var(--saffron-subtle);
+      color: var(--saffron-primary);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .screen-card h4 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-charcoal);
+      margin-bottom: 8px;
+    }
+
+    .screen-card p.screen-summary {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .screen-mockup-wrapper {
+      background: #FAFAFA;
+      border-radius: 18px;
+      padding: 10px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 20px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02);
+      cursor: zoom-in;
+    }
+    .screen-mockup-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+    .screen-card:hover .screen-mockup-wrapper img {
+      transform: scale(1.02);
+    }
+
+    .screen-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-subtle);
+      margin-top: auto;
+      font-size: 0.82rem;
+      color: var(--text-body);
+    }
+    .screen-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .feature-check {
+      color: var(--saffron-primary);
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* MASTER FIGMA COMPONENT LIBRARY SECTION */
+    .components-section {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 80px;
+    }
+    @media (max-width: 768px) {
+      .components-section {
+        padding: 24px;
+      }
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .comp-artboard-card {
+      background: var(--bg-surface-soft);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+    }
+    .comp-artboard-card:hover {
+      border-color: var(--saffron-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .comp-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .comp-name {
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: var(--text-charcoal);
+    }
+    .comp-pill {
+      font-family: monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: var(--text-body);
+    }
+
+    .comp-preview-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      margin-bottom: 14px;
+      cursor: zoom-in;
+    }
+    .comp-preview-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .comp-preview-box:hover img {
+      transform: scale(1.03);
+    }
+
+    .comp-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 10px;
+      margin-top: auto;
+    }
+
+
+    /* LIGHTBOX EXPANDER */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 29, 32, 0.88);
+      backdrop-filter: blur(12px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox-modal.active {
+      display: flex;
+    }
+    .lightbox-modal img {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #FFFFFF;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 45px 0;
+      text-align: center;
+      margin-top: 60px;
+      background: #FFFFFF;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer-link {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-body);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover {
+      color: var(--saffron-primary);
+    }
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION WITH RESPONSIVE MENU -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <div class="brand-icon">
+          <i data-lucide="sun" style="width: 20px; height: 20px;"></i>
+        </div>
+        <div>
+          <span class="brand-title">AstroGuide</span>
+          <span class="brand-badge" style="margin-left: 8px;">Case Study</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-links">
+        <a href="#figma-flow" class="nav-link">Figma Flow 1</a>
+        <a href="#rationales" class="nav-link">Design Decisions</a>
+        <a href="#screens" class="nav-link">Mobile Screens</a>
+        <a href="#components" class="nav-link">Components</a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button (Visible only on mobile <= 768px) -->
+      <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu" onclick="toggleMobileMenu()">
+        <i data-lucide="menu" id="menu-icon-open" style="width: 20px; height: 20px;"></i>
+        <i data-lucide="x" id="menu-icon-close" style="width: 20px; height: 20px; display: none;"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-drawer" class="mobile-nav-drawer">
+    <div class="mobile-drawer-inner">
+      <div class="mobile-menu-label">Navigation</div>
+      
+      <a href="#figma-flow" class="mobile-nav-item" onclick="closeMobileMenu()">
+        <div class="mobile-item-left">
+          <span class="mobile-item-icon"><i data-lucide="layout" style="width: 15px; height: 15px;"></i></span>
+          <span>Figma Flow 1 Canvas</span>
+        </div>
+        <i data-lucide="chevron-right" style="width: 15px; height: 15px; color: var(--text-muted);"></i>
+      </a>
+
+      <a href="#rationales" class="mobile-nav-item" onclick="closeMobileMenu()">
+        <div class="mobile-item-left">
+          <span class="mobile-item-icon"><i data-lucide="lightbulb" style="width: 15px; height: 15px;"></i></span>
+          <span>Design Decisions &amp; Strategy</span>
+        </div>
+        <i data-lucide="chevron-right" style="width: 15px; height: 15px; color: var(--text-muted);"></i>
+      </a>
+
+      <a href="#screens" class="mobile-nav-item" onclick="closeMobileMenu()">
+        <div class="mobile-item-left">
+          <span class="mobile-item-icon"><i data-lucide="smartphone" style="width: 15px; height: 15px;"></i></span>
+          <span>3 Core Mobile Screens</span>
+        </div>
+        <i data-lucide="chevron-right" style="width: 15px; height: 15px; color: var(--text-muted);"></i>
+      </a>
+
+      <a href="#components" class="mobile-nav-item" onclick="closeMobileMenu()">
+        <div class="mobile-item-left">
+          <span class="mobile-item-icon"><i data-lucide="layers" style="width: 15px; height: 15px;"></i></span>
+          <span>Figma Component Matrix</span>
+        </div>
+        <i data-lucide="chevron-right" style="width: 15px; height: 15px; color: var(--text-muted);"></i>
+      </a>
+
+      <div class="mobile-drawer-divider"></div>
+
+      <a href="index.html" class="mobile-nav-item mobile-portfolio-link" onclick="closeMobileMenu()">
+        <div class="mobile-item-left">
+          <span class="mobile-item-icon" style="background: var(--saffron-primary); color: #FFF;">
+            <i data-lucide="arrow-left" style="width: 15px; height: 15px;"></i>
+          </span>
+          <span style="color: var(--saffron-primary);">Back to Main Portfolio</span>
+        </div>
+        <i data-lucide="arrow-up-right" style="width: 15px; height: 15px; color: var(--saffron-primary);"></i>
+      </a>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+        "Warm Vedic Trust" Aesthetic • Mobile UI/UX Case Study
+      </div>
+
+      <h1>
+        AstroGuide — <span class="highlight-saffron">Onboarding &amp; Retention</span><br>
+        Architecture
+      </h1>
+
+      <p class="lead">
+        A 3-step high-conversion mobile user journey engineered to eliminate drop-off, build instant spiritual trust, and incentivize first-session consultations through contextualized virtual currency.
+      </p>
+
+      <!-- KEY METRICS STRIP -->
+      <div class="metrics-strip">
+        <div class="metric-card">
+          <div class="metric-value">3 Frames</div>
+          <div class="metric-label">Frictionless Flow 1 Architecture</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100 Coins</div>
+          <div class="metric-label">Contextualized Welcome Reward</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">&lt; 15 Sec</div>
+          <div class="metric-label">Average Time-to-Consultation</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">52px Targets</div>
+          <div class="metric-label">Effortless Touch Accessibility</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: FIGMA PROTOTYPE USER FLOW (FLOW 1) -->
+    <section class="figma-stage" id="figma-flow">
+      <!-- Titlebar -->
+      <div class="figma-titlebar">
+        <div class="figma-dots">
+          <span class="f-dot f-dot-red"></span>
+          <span class="f-dot f-dot-yellow"></span>
+          <span class="f-dot f-dot-green"></span>
+        </div>
+
+        <div class="figma-info">
+          <i data-lucide="figma" style="width: 15px; height: 15px; color: #0D99FF;"></i>
+          <span>AstroGuide_Prototype.fig</span>
+          <span style="color: #A0AEC0;">/</span>
+          <span class="flow-badge">
+            <i data-lucide="play" style="width: 10px; height: 10px; fill: currentColor;"></i>
+            Flow 1
+          </span>
+        </div>
+
+        <button onclick="openLightbox('img/astroguide-user-flow.png')" style="background: #FFFFFF; border: 1px solid var(--border-subtle); color: var(--text-charcoal); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+          <i data-lucide="maximize-2" style="width: 12px; height: 12px;"></i> Expand
+        </button>
+      </div>
+
+      <!-- Canvas Area with User's Uploaded Image -->
+      <div class="figma-canvas-box">
+        <img 
+          src="img/astroguide-user-flow.png" 
+          alt="AstroGuide Figma Prototype Flow 1 with interactive blue connector wires" 
+          onclick="openLightbox(this.src)"
+          title="Click to view full-resolution flow diagram"
+        />
+      </div>
+
+      <!-- Blue Connector Wires Breakdown -->
+      <div class="flow-steps-strip">
+        <div class="flow-step-item">
+          <div class="flow-step-num">1</div>
+          <div class="flow-step-desc">
+            <strong>Frame 1 ➔ Frame 2 (Smart Animate Slide)</strong>
+            <span>Triggered on "Verify &amp; Continue" tap. Verifies 4-digit OTP and initiates new user reward modal.</span>
+          </div>
+        </div>
+
+        <div class="flow-step-item">
+          <div class="flow-step-num">2</div>
+          <div class="flow-step-desc">
+            <strong>Frame 2 ➔ Frame 3 (Direct Homepage Route)</strong>
+            <span>Triggered on "Claim &amp; Explore Homepage". Credits 100 coins to wallet balance and transitions into astrologer marketplace.</span>
+          </div>
+        </div>
+
+        <div class="flow-step-item">
+          <div class="flow-step-num">3</div>
+          <div class="flow-step-desc">
+            <strong>Dismissal Safety Wire (Close "X" ➔ Return)</strong>
+            <span>Provides users seamless navigation if they dismiss modal, ensuring zero dead-ends in user journey.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE 3 CORE DESIGN RATIONALE PILLARS (EXACT USER TEXT) -->
+    <section id="rationales">
+      <div class="section-head">
+        <span class="section-tag">Design Strategy &amp; Philosophy</span>
+        <h2>Why These Decisions Matter</h2>
+        <p>A breakdown of the visual direction, behavioral psychology, and foundational assumptions driving AstroGuide.</p>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- Pillar 1: Visual Direction & Why I Chose It -->
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <h3>Visual Direction &amp; Why I Chose It</h3>
+          <p>
+            Instead of using the clichéd dark-purple and mystical star theme, I designed a <strong>"Warm Vedic Trust"</strong> aesthetic. The palette pairs warm amber/saffron (<code style="background: var(--saffron-subtle); color: var(--saffron-primary); font-weight: 700; padding: 2px 6px; border-radius: 4px;">#E65100</code>) with a calming ivory background (<code style="background: #F0ECE4; color: #2D3748; font-weight: 700; padding: 2px 6px; border-radius: 4px;">#FAF8F5</code>) and deep charcoal typography (Plus Jakarta Sans).
+          </p>
+          <div class="pillar-highlight-box">
+            <strong>Rationale:</strong> Our target users (25–45+ years from metro to tier-2/3 towns) seek guidance during anxious life moments (marriage, career, family). A bright, warm, and grounded palette evokes reassurance, hope, and authenticity rather than superstition. Clean spacing and large touch targets (52px buttons) ensure effortless usability for users with lower digital literacy.
+          </div>
+        </div>
+
+        <!-- Pillar 2: One Design Decision I Am Proud Of -->
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <h3>One Design Decision I Am Proud Of</h3>
+          <p>
+            <strong>Contextualizing the 100 Coins on the Gift Screen:</strong><br>
+            Rather than simply displaying <em>"You received 100 coins"</em>, I broke down their exact purchasing power into 3 clear cards (Chat at 10 coins/msg, Audio Consultation, and Kundali Session).
+          </p>
+          <div class="pillar-highlight-box">
+            <strong>Impact:</strong> For first-time and non-tech-savvy users, virtual coins feel abstract. Grounding the coins into concrete actions reduces confusion and immediately motivates exploration on the homepage.
+          </div>
+        </div>
+
+        <!-- Pillar 3: Assumptions Made -->
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <h3>Assumptions Made</h3>
+          <p>
+            Three foundational behavioral hypotheses shaped the low-friction user architecture:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; font-size: 0.88rem; color: var(--text-body);">
+            <div style="display: flex; gap: 8px;">
+              <span style="color: var(--saffron-primary); font-weight: 800;">•</span>
+              <span><strong>Passwordless OTP Login:</strong> Assumed OTP over phone number is the most frictionless login method for tier-2/3 users.</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <span style="color: var(--saffron-primary); font-weight: 800;">•</span>
+              <span><strong>Coin Economy:</strong> Assumed standard chats cost ~10–15 coins/message, meaning 100 welcome coins allow users to test 1–2 real queries for free.</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <span style="color: var(--saffron-primary); font-weight: 800;">•</span>
+              <span><strong>Live Availability:</strong> Assumed astrologers have real-time status indicators (Green dot = Online &amp; ready to chat immediately).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE 3 CORE SCREENS (FRAME-BY-FRAME SHOWCASE) -->
+    <section id="screens">
+      <div class="section-head">
+        <span class="section-tag">Screen Architecture</span>
+        <h2>High-Fidelity Mobile Screens</h2>
+        <p>A closer look at the 3 screens comprising the end-to-end onboarding and consultation discovery journey.</p>
+      </div>
+
+      <div class="screens-showcase-grid">
+        <!-- Frame 1 -->
+        <div class="screen-card">
+          <span class="screen-badge">Frame 1</span>
+          <h4>OTP Login &amp; Onboarding</h4>
+          <p class="screen-summary">Frictionless authentication designed to build immediate confidence for anxious life-guidance seekers.</p>
+
+          <div class="screen-mockup-wrapper" onclick="openLightbox('img/astroguide-screen-1.png')">
+            <img src="img/astroguide-screen-1.png" alt="Frame 1 OTP Login" title="Click to expand" />
+          </div>
+
+          <div class="screen-features-list">
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>Pre-filled +91 India flag eliminates 1 tap for domestic users.</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>4-digit box inputs with auto-focus cursor jumping.</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>"100% Private &amp; Confidential" reassurance banner.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 2 -->
+        <div class="screen-card">
+          <span class="screen-badge">Frame 2</span>
+          <h4>100 Free Coins Reward</h4>
+          <p class="screen-summary">Gamified gift modal that turns abstract currency into concrete, actionable consultation queries.</p>
+
+          <div class="screen-mockup-wrapper" onclick="openLightbox('img/astroguide-screen-2.png')">
+            <img src="img/astroguide-screen-2.png" alt="Frame 2 Reward Modal" title="Click to expand" />
+          </div>
+
+          <div class="screen-features-list">
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>Golden temple coin icon creates tangible perceived value.</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>3 purchasing power breakdown cards (Chat, Audio, Kundali).</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>Single 52px CTA motivates direct discovery to homepage.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 3 -->
+        <div class="screen-card">
+          <span class="screen-badge">Frame 3</span>
+          <h4>Astrologer Marketplace</h4>
+          <p class="screen-summary">Personalized discovery feed pairing transparent rates with certified Vedic practitioner trust badges.</p>
+
+          <div class="screen-mockup-wrapper" onclick="openLightbox('img/astroguide-screen-3.png')">
+            <img src="img/astroguide-screen-3.png" alt="Frame 3 Astrologer Feed" title="Click to expand" />
+          </div>
+
+          <div class="screen-features-list">
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>"Namaste, Rahul 👋" greeting with live 100+ wallet balance.</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>Daily Vedic Insight banner with free auspicious timing.</span>
+            </div>
+            <div class="screen-feature-item">
+              <span class="feature-check">✓</span>
+              <span>Verified checkmarks (✓) and real-time online status dots.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MASTER FIGMA COMPONENT LIBRARY (USER'S ACTUAL COMPONENTS) -->
+    <section class="components-section" id="components">
+      <div class="section-head" style="margin-bottom: 12px;">
+        <span class="section-tag">Atomic UI Foundations</span>
+        <h2>Master Figma Component Matrix</h2>
+        <p>The authentic, master button components and interactive state variants designed in Figma for AstroGuide.</p>
+      </div>
+
+      <div class="components-grid">
+        <!-- Component 01: Verify & Continue Button States -->
+        <div class="comp-artboard-card">
+          <div class="comp-head">
+            <div class="comp-name">Verify &amp; Continue</div>
+            <span class="comp-pill">Frame 1 Component</span>
+          </div>
+
+          <div class="comp-preview-box" onclick="openLightbox('img/astroguide-component-verify.png')">
+            <img src="img/astroguide-component-verify.png" alt="Verify & Continue Component States" title="Click to expand" />
+          </div>
+
+          <div class="comp-meta">
+            <span><strong>Variants:</strong> Default &amp; Active States</span>
+            <span><strong>Target:</strong> 52px Touch Height</span>
+          </div>
+        </div>
+
+        <!-- Component 02: Claim & Explore Homepage Button States -->
+        <div class="comp-artboard-card">
+          <div class="comp-head">
+            <div class="comp-name">Claim &amp; Explore Homepage</div>
+            <span class="comp-pill">Frame 2 Component</span>
+          </div>
+
+          <div class="comp-preview-box" onclick="openLightbox('img/astroguide-component-claim.png')">
+            <img src="img/astroguide-component-claim.png" alt="Claim & Explore Component States" title="Click to expand" />
+          </div>
+
+          <div class="comp-meta">
+            <span><strong>Variants:</strong> Default &amp; Active States</span>
+            <span><strong>Target:</strong> 52px Touch Height</span>
+          </div>
+        </div>
+
+        <!-- Component 03: Direct Chat Action Pill States -->
+        <div class="comp-artboard-card">
+          <div class="comp-head">
+            <div class="comp-name">Chat Action Pill</div>
+            <span class="comp-pill">Frame 3 Component</span>
+          </div>
+
+          <div class="comp-preview-box" onclick="openLightbox('img/astroguide-component-chat.png')">
+            <img src="img/astroguide-component-chat.png" alt="Chat Action Pill States" title="Click to expand" />
+          </div>
+
+          <div class="comp-meta">
+            <span><strong>Variants:</strong> Default &amp; Hover States</span>
+            <span><strong>Radius:</strong> Fully Rounded</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UX Audit Highlight Removed -->
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-links">
+        <a href="#figma-flow" class="footer-link">Figma Flow 1</a>
+        <a href="#rationales" class="footer-link">Design Decisions</a>
+        <a href="#screens" class="footer-link">Mobile Screens</a>
+        <a href="#components" class="footer-link">Component Library</a>
+        <a href="https://devverat10-cloud.github.io/Nothing/index.html" target="_blank" class="footer-link">Project 01: Nothing Tech</a>
+        <a href="https://devverat10-cloud.github.io/Foodie/" target="_blank" class="footer-link">Project 02: Foodie App</a>
+      </div>
+      <p class="footer-copy">
+        Designed &amp; Prototyped in Figma by Devverat • UI/UX Case Study • 2026
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- LIGHTBOX EXPANDER MODAL -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">
+      <i data-lucide="x" style="width: 22px; height: 22px;"></i>
+    </button>
+    <img id="lightboxImg" src="" alt="Expanded View" onclick="event.stopPropagation();" />
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Lightbox Modal Functions
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    // Mobile Menu Functions
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+      const isOpen = drawer.classList.contains('open');
+
+      if (isOpen) {
+        drawer.classList.remove('open');
+        if (openIcon) openIcon.style.display = 'block';
+        if (closeIcon) closeIcon.style.display = 'none';
+      } else {
+        drawer.classList.add('open');
+        if (openIcon) openIcon.style.display = 'none';
+        if (closeIcon) closeIcon.style.display = 'block';
+      }
+      lucide.createIcons();
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+      if (drawer) drawer.classList.remove('open');
+      if (openIcon) openIcon.style.display = 'block';
+      if (closeIcon) closeIcon.style.display = 'none';
+      lucide.createIcons();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
